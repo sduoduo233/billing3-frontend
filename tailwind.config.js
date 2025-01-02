@@ -10,6 +10,7 @@ export default {
                 "black": "#000000",
                 "white": "#ffffff",
                 "surface": "#111318",
+                "primary0": "#ccddff",
                 "primary": "#aac7ff",
                 "primary2": "#8eace3",
                 "primary3": "#7491c7",
@@ -19,6 +20,8 @@ export default {
                 "on-surface": "#e2e2e9",
                 "on-surface2": "#c4c6d0",
                 "outline": "#44474e"
+            }, saturate: {
+                25: '.25',
             }
         },
     },

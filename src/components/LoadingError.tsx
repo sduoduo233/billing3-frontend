@@ -1,4 +1,5 @@
 import Alert from "./Alert"
+import Loading from "./Loading"
 import Stack from "./Stack"
 
 interface IProps {
@@ -9,12 +10,10 @@ interface IProps {
 export default function LoadingError(props: IProps) {
     return <Stack className="w-full">
         {
-            props.loading === true && <div>
-                <span className="material-symbols-outlined animate-spin text-5xl text-primary">progress_activity</span>
-            </div>
+            props.loading === true && <Loading></Loading>
         }
         {
-            (props.error !== undefined && props.error !== "") && <Alert severity="success">
+            (props.error !== undefined && props.error !== "") && <Alert severity="error">
                 {props.error}
             </Alert>
         }
