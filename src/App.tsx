@@ -9,7 +9,9 @@ import { useEffect, useState } from 'react'
 import { me, Me } from './api/auth'
 import Loading from './components/Loading'
 import Admin from './pages/admin/Admin'
-import AdminLayout from './components/AdminLayout'
+import UserList from './pages/admin/user/UserList'
+import UserView from './pages/admin/user/UserView'
+import UserEdit from './pages/admin/user/UserEdit'
 
 function App() {
     const [user, setUser] = useState<Me | null>(null);
@@ -38,6 +40,9 @@ function App() {
                         <Route path='auth/signin' element={<Signin />}></Route>
                         <Route path='admin'>
                             <Route index element={<Admin />}></Route>
+                            <Route path='user' element={<UserList />}></Route>
+                            <Route path='user/:id' element={<UserView />}></Route>
+                            <Route path='user/:id/edit' element={<UserEdit />}></Route>
                         </Route>
                     </Route>
 

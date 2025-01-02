@@ -10,6 +10,7 @@ export default {
                 "black": "#000000",
                 "white": "#ffffff",
                 "surface": "#111318",
+                "container": "#1d2024",
                 "primary0": "#ccddff",
                 "primary": "#aac7ff",
                 "primary2": "#8eace3",

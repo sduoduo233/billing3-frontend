@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import Card from "../../components/Card";
 
 export default function Admin() {
     // url, title, icon

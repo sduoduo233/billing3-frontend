@@ -5,10 +5,11 @@ import Stack from "./Stack"
 interface IProps {
     loading?: boolean
     error?: string
+    className?: string
 }
 
 export default function LoadingError(props: IProps) {
-    return <Stack className="w-full">
+    return <Stack className={"w-full " + (props.className || "")}>
         {
             props.loading === true && <Loading></Loading>
         }

@@ -20,7 +20,7 @@ export default function Signin() {
         setError("");
         login(email, password)
             .then(t => {
-                localStorage.setItem("TOKEN", t);
+                localStorage.setItem("token", t);
                 return me();
             })
             .then(u => {
