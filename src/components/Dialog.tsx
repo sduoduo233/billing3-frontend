@@ -26,8 +26,9 @@ export default function Dialog({ open, title, children, onClose, positiveButton,
 
     function onClick(e: React.MouseEvent<HTMLDialogElement, MouseEvent>) {
         if (dialogRef.current === null) return;
-        if (dialogRef.current.children[0].contains(e.target as Node)) return;
-        onClose();
+        const rect = dialogRef.current.children[0].getBoundingClientRect();
+        const inside = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+        if (!inside) onClose();
     }
 
     return <dialog ref={dialogRef} className="bg-transparent backdrop:backdrop-brightness-50" onClick={onClick}>

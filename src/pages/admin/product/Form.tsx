@@ -5,6 +5,7 @@ import { useState } from "react"
 import Basic from "./Basic"
 import Pricing from "./Pricing"
 import Extension from "./Extension"
+import Options from "./Options"
 
 interface IProps {
     onChange: (product: ProductEdit) => void
@@ -18,10 +19,11 @@ export default function Form({ onChange, product, categories, extensions }: IPro
     const [selectedTab, setSelectedTab] = useState("basic");
 
     return <>
-        <Tab className="my-5" tabs={["basic", "pricing", "extension"]} selected={selectedTab} onSelect={setSelectedTab}></Tab>
+        <Tab className="my-5" tabs={["basic", "pricing", "extension", "options"]} selected={selectedTab} onSelect={setSelectedTab}></Tab>
 
         {selectedTab === "basic" && <Basic onChange={onChange} product={product} categories={categories}></Basic>}
         {selectedTab === "pricing" && <Pricing onChange={onChange} product={product}></Pricing>}
         {selectedTab === "extension" && <Extension onChange={onChange} product={product} extensions={extensions}></Extension>}
+        {selectedTab === "options" && <Options onChange={onChange} product={product}></Options>}
     </>
 }

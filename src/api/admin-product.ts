@@ -55,7 +55,7 @@ export async function deleteProduct(id: number): Promise<void> {
     await client.delete(`/admin/product/${id}`);
 }
 
-export type ProductEdit = Omit<Product, "id"> & { options: Option[] }
+export type ProductEdit = Omit<Product, "id"> & { options: Omit<Option, "product_id">[] }
 
 export async function createProduct(product: ProductEdit): Promise<void> {
     await client.post("/admin/product", product);
