@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Table from "../../../components/Table";
 import Tbody from "../../../components/Tbody";
 import Td from "../../../components/Td";
@@ -20,7 +20,7 @@ export default function UserList() {
     const [search, setSearch] = useState("");
     const [totalPages, setTotalPages] = useState(0);
 
-    function onSearch() {
+    const onSearch = useCallback(() => {
         setUsers([]);
         setLoading(true);
         setError("");
@@ -36,11 +36,11 @@ export default function UserList() {
             .finally(() => {
                 setLoading(false);
             });
-    }
+    }, [page, search]);
 
     useEffect(() => {
         onSearch();
-    }, []);
+    }, [onSearch]);
 
     return <>
         <h1 className="text-3xl font-bold">Users</h1>

@@ -35,7 +35,7 @@ export default function Signin() {
         if (user !== null) {
             navigate("/");
         }
-    }, [user]);
+    }, [user, navigate]);
 
     if (user !== null) {
         return <></>

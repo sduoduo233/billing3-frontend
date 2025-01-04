@@ -16,6 +16,8 @@ import CategoryList from './pages/admin/category/CategoryList'
 import { NotFound } from './pages/NotFound'
 import CategoryEdit from './pages/admin/category/CategoryEdit'
 import CategoryAdd from './pages/admin/category/CategoryAdd'
+import ProductList from './pages/admin/product/ProductList'
+import ProductAdd from './pages/admin/product/ProductAdd'
 
 function App() {
     const [user, setUser] = useState<Me | null>(null);
@@ -45,12 +47,17 @@ function App() {
                         <Route path='auth/signin' element={<Signin />}></Route>
                         <Route path='admin'>
                             <Route index element={<Admin />}></Route>
+
                             <Route path='user' element={<UserList />}></Route>
                             <Route path='user/:id' element={<UserView />}></Route>
                             <Route path='user/:id/edit' element={<UserEdit />}></Route>
+
                             <Route path='category' element={<CategoryList />}></Route>
                             <Route path='category/:id' element={<CategoryEdit />}></Route>
                             <Route path='category/add' element={<CategoryAdd />}></Route>
+
+                            <Route path='product' element={<ProductList />}></Route>
+                            <Route path='product/add' element={<ProductAdd />}></Route>
                         </Route>
                     </Route>
 

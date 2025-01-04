@@ -5,7 +5,7 @@ import { UserContext } from "./UserContext";
 
 export default function Navbar() {
     const [show, setShow] = useState(false);
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     let links = [
         { title: "Home", link: "/" },

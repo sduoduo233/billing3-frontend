@@ -64,7 +64,7 @@ export default function CategoryList() {
                         <Td>{category.name}</Td>
                         <Td>
                             <Link to={`/admin/category/${category.id}`} className="text-primary">Edit</Link>
-                            <Delete onDelete={() => onDelete(category.id)}></Delete>
+                            <Delete className="ml-1" onDelete={() => onDelete(category.id)}></Delete>
                         </Td>
                     </Tr>)
                 }

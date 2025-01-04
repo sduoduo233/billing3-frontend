@@ -12,7 +12,7 @@ interface IProps {
 }
 
 export default function Select(props: IProps) {
-    return <div>
+    return <div className="flex flex-col">
         {props.label && <label className="mb-1">{props.label}</label>}
         <select
             className={"dark:[color-scheme:dark] rounded bg-surface border-outline focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent " + (props.className || "")}
