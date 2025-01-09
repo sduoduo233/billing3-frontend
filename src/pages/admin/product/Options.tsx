@@ -103,8 +103,8 @@ export default function Options({ onChange, product }: IProps) {
         const cloned = cloneDeep(product);
         cloned.options[option].values[optionPricing].prices.push({
             duration: 0,
-            price: "",
-            setup_fee: ""
+            price: "0.00",
+            setup_fee: "0.00"
         });
         onChange(cloned);
     }

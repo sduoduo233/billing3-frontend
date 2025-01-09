@@ -18,6 +18,7 @@ import CategoryEdit from './pages/admin/category/CategoryEdit'
 import CategoryAdd from './pages/admin/category/CategoryAdd'
 import ProductList from './pages/admin/product/ProductList'
 import ProductAdd from './pages/admin/product/ProductAdd'
+import ProductEdit from './pages/admin/product/ProductEdit'
 
 function App() {
     const [user, setUser] = useState<Me | null>(null);
@@ -58,6 +59,7 @@ function App() {
 
                             <Route path='product' element={<ProductList />}></Route>
                             <Route path='product/add' element={<ProductAdd />}></Route>
+                            <Route path='product/:id' element={<ProductEdit />}></Route>
                         </Route>
                     </Route>
 
