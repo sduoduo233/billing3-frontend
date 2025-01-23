@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createInvoiceItem, createPayment, deleteInvoiceItem, getInvoice, getPayments, InvoiceWithUsername, Item, Payment, updateInvoiceItem } from "../../../api/admin-invoice";
+import { createPayment, getInvoice, getPayments, InvoiceWithUsername, Payment } from "../../../api/admin-invoice";
 import LoadingError from "../../../components/LoadingError";
 import Button from "../../../components/Button";
 import Table from "../../../components/Table";
@@ -8,9 +8,6 @@ import Tr from "../../../components/Tr";
 import Th from "../../../components/Th";
 import Tbody from "../../../components/Tbody";
 import Td from "../../../components/Td";
-import Delete from "../../../components/Delete";
-import { cloneDeep } from "lodash";
-import Dialog from "../../../components/Dialog";
 import Stack from "../../../components/Stack";
 import Input from "../../../components/Input";
 import Card from "../../../components/Card";

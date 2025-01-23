@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Gateway, getGateways, getInvoice, getPayments, Invoice, InvoiceItem, Payment, payNow } from "../../api/invoice";
 import LoadingError from "../../components/LoadingError";
-import Card from "../../components/Card";
 import Alert from "../../components/Alert";
 import Table from "../../components/Table";
 import Th from "../../components/Th";
