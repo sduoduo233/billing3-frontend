@@ -6,7 +6,7 @@ export default function BaseLayout() {
         <Navbar></Navbar>
 
         <div className="px-3">
-            <div className='container mx-auto mt-5'>
+            <div className='container mx-auto my-5'>
                 <Outlet></Outlet>
             </div>
         </div>

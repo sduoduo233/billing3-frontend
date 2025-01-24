@@ -9,6 +9,7 @@ import Tbody from "../../components/Tbody";
 import Td from "../../components/Td";
 import { Link } from "react-router";
 import Pagination from "../../components/Pagination";
+import Status from "../../components/Status";
 
 
 
@@ -55,7 +56,7 @@ export default function InvoiceList() {
             <Tbody>
                 {invoices.map(invoice => <Tr key={invoice.id}>
                     <Td>{invoice.id}</Td>
-                    <Td>{invoice.status}</Td>
+                    <Td><Status status={invoice.status}></Status></Td>
                     <Td>${invoice.amount}</Td>
                     <Td>{new Date(invoice.due_at * 1000).toLocaleString()}</Td>
                     <Td>{new Date(invoice.created_at * 1000).toLocaleString()}</Td>

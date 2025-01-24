@@ -32,6 +32,8 @@ import GatewayList from './pages/admin/gateway/GatewayList'
 import InvoiceList from './pages/invoice/InvoiceList'
 import Dashboard from './pages/Dashboard'
 import InvoiceView from './pages/invoice/InvoiceView'
+import ServiceList from './pages/admin/service/ServiceList'
+import ServiceView from './pages/admin/service/ServiceView'
 
 function App() {
     const [user, setUser] = useState<Me | null>(null);
@@ -97,6 +99,9 @@ function App() {
 
                             <Route path='gateway' element={<GatewayList></GatewayList>}></Route>
                             <Route path='gateway/:id' element={<GatewayEdit />}></Route>
+
+                            <Route path='service' element={<ServiceList />}></Route>
+                            <Route path='service/:id' element={<ServiceView />}></Route>
                         </Route>
                     </Route>
 

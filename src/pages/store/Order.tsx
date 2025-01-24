@@ -102,7 +102,7 @@ export default function Order() {
             duration: billingCycle,
             options: inputs
         })
-            .then((i) => navigate("/invoice/" + i))
+            .then((i) => navigate("/dashboard/invoice/" + i))
             .catch(e => setError(e.message))
             .finally(() => setLoading(false));
     }

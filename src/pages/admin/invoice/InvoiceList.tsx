@@ -9,6 +9,7 @@ import Tbody from "../../../components/Tbody";
 import Td from "../../../components/Td";
 import Pagination from "../../../components/Pagination";
 import Select from "../../../components/Select";
+import Status from "../../../components/Status";
 
 
 export default function InvoiceList() {
@@ -62,8 +63,8 @@ export default function InvoiceList() {
             <Thead>
                 <Tr>
                     <Th>#</Th>
-                    <Th>User</Th>
                     <Th>Status</Th>
+                    <Th>User</Th>
                     <Th>Amount</Th>
                     <Th>Due At</Th>
                     <Th>Actions</Th>
@@ -73,9 +74,9 @@ export default function InvoiceList() {
                 {
                     invoices.map((invoice) => <Tr key={invoice.id}>
                         <Td>{invoice.id}</Td>
+                        <Td><Status status={invoice.status}></Status></Td>
                         <Td>{invoice.user_id}</Td>
-                        <Td>{invoice.status}</Td>
-                        <Td>{invoice.amount}</Td>
+                        <Td>${invoice.amount}</Td>
                         <Td>{new Date(invoice.due_at * 1000).toLocaleString()}</Td>
                         <Td>
                             <a href={"/admin/invoice/" + invoice.id} className="text-blue-500">Edit</a>

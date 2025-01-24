@@ -11,6 +11,7 @@ import Tbody from "../../components/Tbody";
 import Td from "../../components/Td";
 import Button from "../../components/Button";
 import Select from "../../components/Select";
+import Status from "../../components/Status";
 
 
 
@@ -63,9 +64,7 @@ export default function InvoiceView() {
 
         {invoice && <>
             <div className="mt-3">
-                {invoice.status === "UNPAID" && <span className="bg-rose-500 font-bold text-white rounded p-1 text-xl">UNPAID</span>}
-                {invoice.status === "PAID" && <span className="bg-green-600 font-bold text-white rounded p-1 text-xl">PAID</span>}
-                {invoice.status === "CANCELLED" && <span className="bg-gray-500 font-bold text-white rounded p-1 text-xl">CANCELLED</span>}
+                <Status status={invoice.status} large></Status>
             </div>
 
             {(invoice.cancellation_reason && invoice.status === "CANCELLED") && <div className="mt-3">
