@@ -2,7 +2,7 @@ import { cloneDeep } from "lodash"
 import { ProductEdit, ProductSetting, getProductSettings as apiGetProductSettings } from "../../../api/admin-product"
 import Stack from "../../../components/Stack"
 import Select from "../../../components/Select"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import LoadingError from "../../../components/LoadingError"
 import Input from "../../../components/Input"
 import Textarea from "../../../components/Textarea"
@@ -16,10 +16,10 @@ interface IProps {
 }
 
 export default function Extension({ onChange, product, extensions }: IProps) {
+    const [loaded, setLoaded] = useState(false);
     const [productSettings, setProductSettings] = useState<ProductSetting[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string>("");
-    const currentSettings = useRef<Record<string, string>>({});
     const [servers, setServers] = useState<Server[]>([]);
 
     useEffect(() => {
@@ -32,39 +32,41 @@ export default function Extension({ onChange, product, extensions }: IProps) {
             .finally(() => setLoading(false));
     }, [])
 
+    useEffect(() => {
+        if (loaded) return;
+        setLoaded(true);
+
+        apiGetProductSettings(product.extension, product.settings)
+                .then(d => setProductSettings(d))
+                .catch(e => setError(e.message))
+                .finally(() => setLoading(false));
+    }, [loaded, product])
+
     function onExtensionChange(v: string) {
         const cloned = cloneDeep(product);
         cloned.extension = v;
         onChange(cloned);
+
+        apiGetProductSettings(cloned.extension, cloned.settings)
+                .then(d => setProductSettings(d))
+                .catch(e => setError(e.message))
+                .finally(() => setLoading(false));
     }
-
-    const updateProductSettings = useCallback((settings: Record<string, string>) => {
-        setLoading(true);
-        setError("");
-
-        apiGetProductSettings(product.extension, settings)
-            .then((data) => {
-                setProductSettings(data)
-            })
-            .catch((e) => {
-                setError(e.message);
-            })
-            .finally(() => setLoading(false));
-    }, [product.extension]);
-
-    useEffect(() => {
-        updateProductSettings(currentSettings.current);
-    }, [updateProductSettings]);
-
-    useEffect(() => {
-        currentSettings.current = product.settings;
-    }, [product.settings]);
 
     function onSettingChange(name: string, value: string, update: boolean) {
         const cloned = cloneDeep(product);
         cloned.settings[name] = value;
         onChange(cloned);
-        if (update) updateProductSettings(cloned.settings);
+        if (update) {
+            apiGetProductSettings(cloned.extension, cloned.settings)
+                .then((data) => {
+                    setProductSettings(data)
+                })
+                .catch((e) => {
+                    setError(e.message);
+                })
+                .finally(() => setLoading(false));
+        }
     }
 
     return <>
