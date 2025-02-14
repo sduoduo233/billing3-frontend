@@ -4,7 +4,9 @@ import { getUser, User } from "../../../api/admin-user";
 import LoadingError from "../../../components/LoadingError";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
-
+import Tab from "../../../components/Tab";
+import UserInvoice from "./UserInvoice";
+import UserService from "./UserService";
 
 
 export default function UserView() {
@@ -12,21 +14,17 @@ export default function UserView() {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string>("");
+    const [tab, setTab] = useState("INVOICE");
 
     useEffect(() => {
         setLoading(true);
         setError("");
         getUser(parseInt(id!))
-            .then((data) => {
-                setUser(data);
-            })
-            .catch((error) => {
-                setError(error.message);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+            .then(d => setUser(d))
+            .catch(e => setError(e.message))
+            .finally(() => setLoading(false));
     }, [id]);
+
 
     return (
         <>
@@ -58,9 +56,14 @@ export default function UserView() {
                             </div>
                         </div>
                     </Card>
+
                 </>
             }
 
+            <Tab tabs={["INVOICE", "SERVICE"]} selected={tab} onSelect={setTab} className="mt-3"></Tab>
+
+            {tab === "INVOICE" && <UserInvoice id={parseInt(id!)}></UserInvoice>}
+            {tab === "SERVICE" && <UserService id={parseInt(id!)}></UserService>}
         </>
     );
 }
