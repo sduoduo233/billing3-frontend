@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getExtensions } from "../../../api/admin-product";
 import Select from "../../../components/Select";
 import LoadingError from "../../../components/LoadingError";
+import Textarea from "../../../components/Textarea";
 
 
 
@@ -72,7 +73,10 @@ export default function Form({ server, onChange }: { server: Server, onChange: (
 
         {settings.map(s => {
             if (s.type === "string") {
-                return <Input key={s.name} label={s.display_name} value={server.settings[s.name] || ""} onChange={e => onSettingChange(s.name, e)}></Input>
+                return <Input key={s.name} placeholder={s.placeholder} label={s.display_name} value={server.settings[s.name] || ""} onChange={e => onSettingChange(s.name, e)}></Input>
+            }
+            if (s.type === "text") {
+                return <Textarea key={s.name} placeholder={s.placeholder} label={s.display_name} value={server.settings[s.name] || ""} onChange={e => onSettingChange(s.name, e)}></Textarea>
             }
         })}
     </Stack>

@@ -68,3 +68,7 @@ export async function getAdminActions(id: number): Promise<string[]> {
 export async function updateServiceSettings(id: number, settings: Record<string, string>): Promise<void> {
     await client.put(`/admin/service/${id}/settings`, { ...settings })
 }
+
+export async function getAdminInfoPgae(id: number): Promise<string> {
+    return (await client.get(`/admin/service/${id}/info`)).data;
+}

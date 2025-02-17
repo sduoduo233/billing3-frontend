@@ -52,8 +52,8 @@ export default function ServiceView() {
             try {
                 const s = await getService(parseInt(id!));
                 setSerivce(s);
-                setActions(await getClientActions(s.id));
                 if (s.status === "ACTIVE") {
+                    setActions(await getClientActions(s.id));
                     setIframeData(await getInfoPage(s.id));
                 }
             } catch (e: any) {

@@ -1,4 +1,5 @@
 import { cloneDeep } from "lodash"
+import { useEffect } from "react"
 
 export interface Value {
     display_name: string
@@ -24,6 +25,17 @@ export default function MultiSelect({ values, selected, label, helperText, onCha
         }
         if (onChange) onChange(cloned)
     }
+
+    useEffect(() => {
+        let f = false;
+        for (const v of selected) {
+            if (values.find(val => val.value === v) === undefined) {
+                f = true;
+                break;
+            }
+        }
+        if (f && onChange) onChange(selected.filter(v => values.find(val => val.value === v) !== undefined));
+    }, [onChange, selected, values])
 
     return <div className="flex flex-col">
         {label && <label className="mb-1">{label}</label>}

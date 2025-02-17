@@ -11,7 +11,7 @@ interface IProps {
     helperText?: string
 }
 
-export default function Input(props: IProps) {
+export default function Textarea(props: IProps) {
 
     return (
         <div className="flex flex-col">
