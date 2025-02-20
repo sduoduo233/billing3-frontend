@@ -36,6 +36,7 @@ import AdminServiceList from './pages/admin/service/ServiceList'
 import AdminServiceView from './pages/admin/service/ServiceView'
 import ServiceList from './pages/service/ServiceList'
 import ServiceView from './pages/service/ServiceView'
+import Logout from './pages/Logout'
 
 function App() {
     const [user, setUser] = useState<Me | null>(null);
@@ -64,6 +65,7 @@ function App() {
                         <Route index element={<Index />}></Route>
 
                         <Route path='auth/signin' element={<Signin />}></Route>
+                        <Route path='auth/logout' element={<Logout />}></Route>
 
                         <Route path="store">
                             <Route index element={<CategoryList></CategoryList>}></Route>

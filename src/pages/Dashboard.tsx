@@ -66,7 +66,7 @@ export default function Dashboard() {
                 <Card title="Shortcuts" className="mt-3">
                     <ul>
                         <li><Link to="/store" className="text-primary underline">Order a service</Link></li>
-                        <li><Link to="/logout" className="text-primary underline">Logout</Link></li>
+                        <li><Link to="/auth/logout" className="text-primary underline">Logout</Link></li>
                     </ul>
                 </Card>
             </div>
