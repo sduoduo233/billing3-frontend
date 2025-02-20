@@ -5,7 +5,12 @@ export interface Me {
     email: string
     name: string
     role: "admin" | "user"
-    address: string
+    full_address: string
+    address: string | null
+    city: string | null
+    state: string | null
+    country: string | null
+    zip_code: string | null
 }
 
 export async function me(): Promise<Me> {
@@ -20,4 +25,8 @@ export async function login(email: string, password: string): Promise<string> {
     return (await client.post("/auth/login", {
         email, password
     })).data.token
+}
+
+export async function updateProfile(user: Omit<Me, "email" | "name" | "role" | "full_address">): Promise<void> {
+    await client.put("/auth/profile", user)
 }

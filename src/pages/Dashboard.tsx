@@ -58,9 +58,9 @@ export default function Dashboard() {
                         <strong>Email</strong>
                         <span>{user.email}</span>
                         <strong>Address</strong>
-                        <span>{user.address}</span>
+                        <span>{user.full_address}</span>
                     </div>
-                    <Button className="mt-3" variant="outlined">Edit</Button>
+                    <Link to="/dashboard/profile"><Button className="mt-3" variant="outlined">Edit</Button></Link>
                 </Card>
 
                 <Card title="Shortcuts" className="mt-3">

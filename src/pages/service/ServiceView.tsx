@@ -111,7 +111,7 @@ export default function ServiceView() {
                     <span className="font-bold">Price</span>
                     <span>${service.price} / {formatBillingCycle(service.billing_cycle)}</span>
 
-                    <span>Created at</span>
+                    <span className="font-bold">Created at</span>
                     <span>{new Date(service.created_at * 1000).toLocaleString()}</span>
 
                     {(service.cancelled_at && service.status === "CANCELLED") && <>

@@ -37,6 +37,7 @@ import AdminServiceView from './pages/admin/service/ServiceView'
 import ServiceList from './pages/service/ServiceList'
 import ServiceView from './pages/service/ServiceView'
 import Logout from './pages/Logout'
+import Profile from './pages/Profile'
 
 function App() {
     const [user, setUser] = useState<Me | null>(null);
@@ -81,6 +82,8 @@ function App() {
 
                             <Route path='service' element={<ServiceList />}></Route>
                             <Route path='service/:id' element={<ServiceView />}></Route>
+
+                            <Route path='profile' element={<Profile></Profile>}></Route>
                         </Route>
 
                         <Route path='admin'>
