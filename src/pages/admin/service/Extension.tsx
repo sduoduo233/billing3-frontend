@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { doAction, getAdminActions, getAdminInfoPgae } from "../../../api/admin-service";
+import { doAction, getAdminActions } from "../../../api/admin-service";
 import Button from "../../../components/Button";
 import Alert from "../../../components/Alert";
 import LoadingError from "../../../components/LoadingError";
@@ -11,18 +11,18 @@ export default function Extension({ id }: { id: number }) {
     const [loading, setLoading] = useState(false);
     const [actions, setActions] = useState<string[]>([]);
     const [success, setSuccess] = useState("");
-    const [infoPage, setInfoPage] = useState("");
+    const [iframeSrc, setIframeSrc] = useState("about:blank");
 
     useEffect(() => {
+        setIframeSrc("about:blank");
         setLoading(true);
         setError("");
         setActions([]);
         getAdminActions(id)
             .then(r => {
                 setActions(r)
-                return getAdminInfoPgae(id)
+                setIframeSrc("/api/admin/service/" + id + "/info");
             })
-            .then(r => setInfoPage(r))
             .catch(e => setError(e.message))
             .finally(() => setLoading(false));
     }, [id]);
@@ -43,6 +43,6 @@ export default function Extension({ id }: { id: number }) {
             {actions.map(a => <Button key={a} onClick={() => onClick(a)}>{a.toUpperCase()}</Button>)}
         </div>
 
-        <iframe className="h-[60vh] w-full mt-3 bg-white select-none" srcDoc={infoPage} sandbox="allow-forms allow-scripts" referrerPolicy="no-referrer"></iframe>
+        <iframe src={iframeSrc} className="h-[60vh] w-full mt-3 bg-white select-none" sandbox="allow-forms allow-scripts" referrerPolicy="no-referrer"></iframe>
     </>
 }

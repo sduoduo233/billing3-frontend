@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { getClientActions, getInfoPage, getService, Service, doAction as apiDoAction } from "../../api/service";
+import { getClientActions, getService, Service, doAction as apiDoAction } from "../../api/service";
 import { useEffect, useState } from "react";
 import LoadingError from "../../components/LoadingError";
 import Card from "../../components/Card";
@@ -14,19 +14,22 @@ export default function ServiceView() {
     const [error, setError] = useState<string>("");
     const [service, setSerivce] = useState<Service | null>(null);
     const [actions, setActions] = useState<string[]>([]);
-    const [iframeData, setIframeData] = useState<string>("");
+    const [iframeSrc, setIframeSrc] = useState<string>("about:blank");  
+    const [success, setSuccess] = useState<string>("");
 
     useEffect(() => {
+        setIframeSrc("about:blank");
         setLoading(true);
         setError("");
         setSerivce(null);
+        setSuccess("");
         (async function fetchData() {
             try {
                 const s = await getService(parseInt(id!));
                 setSerivce(s);
                 if (s.status === "ACTIVE") {
                     setActions(await getClientActions(s.id));
-                    setIframeData(await getInfoPage(s.id));
+                    setIframeSrc(`/api/service/${s.id}/info`);
                 }
             } catch (e: any) {
                 setError(e.message);
@@ -49,16 +52,21 @@ export default function ServiceView() {
 
     function doAction(a: string) {
         if (service === null) return;
+        setSuccess("");
         setLoading(true);
         setError("");
         apiDoAction(service.id, a)
-            .then(() => { })
+            .then(() => {
+                setSuccess(`Action ${a} has been scheduled`);
+            })
             .catch(e => setError(e.message))
             .finally(() => setLoading(false));
     }
 
     return <>
         <LoadingError loading={loading} error={error} />
+        {success && <Alert severity="success">{success}</Alert>}
+
 
         <h1 className="text-3xl font-bold">Service #{id}</h1>
 
@@ -90,11 +98,13 @@ export default function ServiceView() {
             </Card>
 
             {service.status === "ACTIVE" && <>
+
+
                 <Card className="mt-3" title="Server information">
                     <div className="flex gap-1 flex-wrap">
                         {actions.map(a => <Button onClick={() => doAction(a)} key={a}>{a.toUpperCase()}</Button>)}
                     </div>
-                    <iframe className="h-[60vh] w-full mt-3 bg-white select-none" srcDoc={iframeData} sandbox="allow-forms allow-scripts" referrerPolicy="no-referrer"></iframe>
+                    <iframe src={iframeSrc} className="h-[60vh] w-full mt-3 bg-white select-none" sandbox="allow-forms allow-scripts" referrerPolicy="no-referrer"></iframe>
                 </Card>
             </>}
         </div>}

@@ -26,9 +26,6 @@ export async function getClientActions(id: number): Promise<string[]> {
     return (await client.get(`/service/${id}/action`)).data.actions;
 }
 
-export async function getInfoPage(id: number): Promise<string> {
-    return (await client.get(`/service/${id}/info`)).data;
-}
 
 export async function doAction(id: number, action: string) {
     return (await client.post(`/service/${id}/action`, { action }))

@@ -21,6 +21,7 @@ export default function Signin() {
         login(email, password)
             .then(t => {
                 localStorage.setItem("token", t);
+                document.cookie = `token=${t}; path=/`;
                 return me();
             })
             .then(u => {
