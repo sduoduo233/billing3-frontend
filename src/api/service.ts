@@ -14,6 +14,16 @@ export interface Service {
     cancelled_at: number | null
 }
 
+export interface ServiceJob {
+    id: number;
+    kind: string;
+    state: string;
+    scheduled_at: number;
+    finalized_at: number | null;
+    action: string;
+}
+
+
 export async function getServices(): Promise<Service[]> {
     return (await client.get("/service")).data.services
 }
@@ -29,4 +39,8 @@ export async function getClientActions(id: number): Promise<string[]> {
 
 export async function doAction(id: number, action: string) {
     return (await client.post(`/service/${id}/action`, { action }))
+}
+
+export async function getServiceJobs(id: number): Promise<ServiceJob[]> {
+    return (await client.get(`/service/${id}/jobs`)).data.jobs;
 }

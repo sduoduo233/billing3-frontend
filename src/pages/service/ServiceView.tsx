@@ -1,11 +1,17 @@
 import { useParams } from "react-router";
-import { getClientActions, getService, Service, doAction as apiDoAction } from "../../api/service";
+import { getClientActions, getService, Service, doAction as apiDoAction, ServiceJob, getServiceJobs } from "../../api/service";
 import { useEffect, useState } from "react";
 import LoadingError from "../../components/LoadingError";
 import Card from "../../components/Card";
 import Status from "../../components/Status";
 import Alert from "../../components/Alert";
 import Button from "../../components/Button";
+import Table from "../../components/Table";
+import Thead from "../../components/Thead";
+import Tbody from "../../components/Tbody";
+import Td from "../../components/Td";
+import Th from "../../components/Th";
+import Tr from "../../components/Tr";
 
 
 export default function ServiceView() {
@@ -16,6 +22,7 @@ export default function ServiceView() {
     const [actions, setActions] = useState<string[]>([]);
     const [iframeSrc, setIframeSrc] = useState<string>("about:blank");  
     const [success, setSuccess] = useState<string>("");
+    const [jobs, setJobs] = useState<ServiceJob[]>([]);
 
     useEffect(() => {
         setIframeSrc("about:blank");
@@ -23,6 +30,7 @@ export default function ServiceView() {
         setError("");
         setSerivce(null);
         setSuccess("");
+        setJobs([]);
         (async function fetchData() {
             try {
                 const s = await getService(parseInt(id!));
@@ -30,6 +38,7 @@ export default function ServiceView() {
                 if (s.status === "ACTIVE") {
                     setActions(await getClientActions(s.id));
                     setIframeSrc(`/api/service/${s.id}/info`);
+                    setJobs(await getServiceJobs(s.id));
                 }
             } catch (e: any) {
                 setError(e.message);
@@ -58,7 +67,9 @@ export default function ServiceView() {
         apiDoAction(service.id, a)
             .then(() => {
                 setSuccess(`Action ${a} has been scheduled`);
+                return getServiceJobs(service.id);
             })
+            .then(r => setJobs(r))
             .catch(e => setError(e.message))
             .finally(() => setLoading(false));
     }
@@ -105,6 +116,30 @@ export default function ServiceView() {
                         {actions.map(a => <Button onClick={() => doAction(a)} key={a}>{a.toUpperCase()}</Button>)}
                     </div>
                     <iframe src={iframeSrc} className="h-[60vh] w-full mt-3 bg-white select-none" sandbox="allow-forms allow-scripts" referrerPolicy="no-referrer"></iframe>
+                </Card>
+
+                <Card className="mt-3" title="Service Jobs">
+                    <Table>
+                        <Thead>
+                            <Tr>
+                                <Th>#</Th>
+                                <Th>State</Th>
+                                <Th>Action</Th>
+                                <Th>Scheduled at</Th>
+                                <Th>Finalized at</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {jobs.map(job => <Tr key={job.id}>
+                                <Td>{job.id}</Td>
+                                <Td><Status status={job.state} /></Td>
+                                <Td>{job.action}</Td>
+                                <Td>{new Date(job.scheduled_at).toLocaleString()}</Td>
+                                <Td>{job.finalized_at ? new Date(job.finalized_at).toLocaleString() : "-"}</Td>
+                            </Tr>)}
+    
+                        </Tbody>    
+                    </Table>
                 </Card>
             </>}
         </div>}
