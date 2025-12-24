@@ -1,12 +1,11 @@
 import { useParams } from "react-router";
-import { getActionStatus, getClientActions, getInfoPage, getService, Service, doAction as apiDoAction } from "../../api/service";
+import { getClientActions, getInfoPage, getService, Service, doAction as apiDoAction } from "../../api/service";
 import { useEffect, useState } from "react";
 import LoadingError from "../../components/LoadingError";
 import Card from "../../components/Card";
 import Status from "../../components/Status";
 import Alert from "../../components/Alert";
 import Button from "../../components/Button";
-import { ActionStatus } from "../../api/admin-service";
 
 
 export default function ServiceView() {
@@ -16,33 +15,6 @@ export default function ServiceView() {
     const [service, setSerivce] = useState<Service | null>(null);
     const [actions, setActions] = useState<string[]>([]);
     const [iframeData, setIframeData] = useState<string>("");
-    const [actionStatus, setActionStatus] = useState<ActionStatus>({ pending: "", action_error: "", info: "" })
-
-    useEffect(() => {
-        let i = setTimeout(f, 1000)
-
-        function f() {
-            (async function () {
-                const r = await getActionStatus(parseInt(id!));
-
-                const n = { ...actionStatus };
-
-                // flash message
-                if (r.action_error !== "") {
-                    n.action_error = r.action_error
-                }
-                if (r.info !== "") {
-                    n.info = r.info
-                }
-
-                n.pending = r.pending
-                setActionStatus(n)
-
-                i = setTimeout(f, 3000)
-            })()
-        }
-        return () => clearTimeout(i)
-    }, [actionStatus, id])
 
     useEffect(() => {
         setLoading(true);
@@ -95,10 +67,6 @@ export default function ServiceView() {
             <Status status={service.status} large />
 
             {service.status === "CANCELLED" && <div className="mt-3"><Alert severity="warning">Cancellation reason: {service.cancellation_reason}</Alert></div>}
-
-            {actionStatus.pending && <div className="mt-3"><Alert severity="info">{actionStatus.pending}</Alert></div>}
-            {actionStatus.action_error && <div className="mt-3"><Alert severity="error">{actionStatus.action_error}</Alert></div>}
-            {actionStatus.info && <div className="mt-3"><Alert severity="success">{actionStatus.info}</Alert></div>}
 
             <Card className="mt-3" title="Info">
                 <div className="flex flex-col gap-1">

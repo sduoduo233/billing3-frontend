@@ -17,10 +17,16 @@ export interface Service {
     cancelled_at: number;
 }
 
-export interface ActionStatus { 
-    pending: string
-    info: string
-    action_error: string
+
+export interface ServiceJob {
+    id: number;
+    kind: string;
+    state: string;
+    scheduled_at: number;
+    attempted_at: number | null;
+    finalized_at: number | null;
+    args: string;
+    error: string;
 }
 
 export type ServiceWithName = Service & { name: string }
@@ -57,10 +63,6 @@ export async function getInvoices(id: number): Promise<Invoice[]> {
     return (await client.get(`/admin/service/${id}/invoice`)).data.invoices
 }
 
-export async function getActionStatus(id: number): Promise<ActionStatus> {
-    return (await client.get(`/admin/service/${id}/action-status`)).data
-}
-
 export async function getAdminActions(id: number): Promise<string[]> {
     return (await client.get(`/admin/service/${id}/action`)).data.actions;
 }
@@ -71,4 +73,8 @@ export async function updateServiceSettings(id: number, settings: Record<string,
 
 export async function getAdminInfoPgae(id: number): Promise<string> {
     return (await client.get(`/admin/service/${id}/info`)).data;
+}
+
+export async function getServiceJobs(id: number): Promise<ServiceJob[]> {
+    return (await client.get(`/admin/service/${id}/jobs`)).data.jobs;
 }

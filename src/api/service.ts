@@ -1,4 +1,3 @@
-import { ActionStatus } from "./admin-service"
 import client from "./base"
 
 
@@ -29,10 +28,6 @@ export async function getClientActions(id: number): Promise<string[]> {
 
 export async function getInfoPage(id: number): Promise<string> {
     return (await client.get(`/service/${id}/info`)).data;
-}
-
-export async function getActionStatus(id: number): Promise<ActionStatus> {
-    return (await client.get(`/service/${id}/action-status`)).data
 }
 
 export async function doAction(id: number, action: string) {
