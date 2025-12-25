@@ -35,7 +35,7 @@ export function GatewayEdit() {
     }, [id]);
 
     return <div>
-        <h1 className="text-3xl font-bold">Server #{id}</h1>
+        <h1 className="text-3xl font-bold">Gateway #{id}</h1>
 
         <LoadingError loading={loading} error={error}></LoadingError>
 

@@ -28,7 +28,7 @@ export default function GatewayList() {
     }, []);
 
     return <>
-        <h1 className="text-3xl font-bold">Servers</h1>
+        <h1 className="text-3xl font-bold">Payment Gateways</h1>
 
         <LoadingError loading={loading} error={error}></LoadingError>
 
