@@ -11,6 +11,7 @@ import Td from "../../../components/Td";
 import Button from "../../../components/Button";
 import { cloneDeep, omit } from "lodash";
 import { useNavigate } from "react-router";
+import Textarea from "../../../components/Textarea";
 
 
 
@@ -71,7 +72,9 @@ export default function Settings({ id }: { id: number }) {
             <Tbody>
                 {Object.keys(settings).map(k => <Tr key={k}>
                     <Td>{k}</Td>
-                    <Td><Input value={settings[k]} onChange={(v) => onChange(k, v)}></Input></Td>
+                    <Td>
+                        <Textarea rows={2} value={settings[k]} onChange={(v) => onChange(k, v)}></Textarea>
+                    </Td>
                     <Td><button className="text-rose-500" onClick={() => setSettings(omit(cloneDeep(settings), [k]))}>Delete</button></Td>
                 </Tr>)}
             </Tbody>

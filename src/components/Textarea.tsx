@@ -9,6 +9,7 @@ interface IProps {
     label?: string
     placeholder?: string
     helperText?: string
+    rows?: number
 }
 
 export default function Textarea(props: IProps) {
@@ -23,7 +24,7 @@ export default function Textarea(props: IProps) {
                 readOnly={props.readOnly === true}
                 disabled={props.disabled === true}
                 placeholder={props.placeholder}
-                rows={5}
+                rows={props.rows || 5}
             ></textarea>
             {props.helperText && <span className="text-sm text-on-surface2">{props.helperText}</span>}
         </div>
