@@ -67,6 +67,7 @@ export default function Dashboard() {
                     <ul>
                         <li><Link to="/store" className="text-primary underline">Order a service</Link></li>
                         <li><Link to="/auth/logout" className="text-primary underline">Logout</Link></li>
+                        <li><Link to="/auth/reset-password" className="text-primary underline">Reset password</Link></li>
                     </ul>
                 </Card>
             </div>

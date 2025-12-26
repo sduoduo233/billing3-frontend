@@ -40,6 +40,8 @@ import Logout from './pages/Logout'
 import Profile from './pages/Profile'
 import Signup from './pages/Signup'
 import Signup2 from './pages/Signup2'
+import ResetPassword from './pages/ResetPassword'
+import ResetPassword2 from './pages/ResetPassword2'
 
 function App() {
     const [user, setUser] = useState<Me | null>(null);
@@ -71,6 +73,8 @@ function App() {
                         <Route path='auth/logout' element={<Logout />}></Route>
                         <Route path='auth/signup' element={<Signup />}></Route>
                         <Route path='auth/register2' element={<Signup2 />}></Route>
+                        <Route path='auth/reset-password' element={<ResetPassword />}></Route>
+                        <Route path='auth/reset-password2' element={<ResetPassword2 />}></Route>
 
                         <Route path="store">
                             <Route index element={<CategoryList></CategoryList>}></Route>

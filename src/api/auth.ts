@@ -40,3 +40,11 @@ export async function register2(name: string, password: string, token: string): 
         name, password, token
     })).data.token
 }
+
+export async function resetPassword(email: string): Promise<void> {
+    await client.post("/auth/reset-password", { email })
+}
+
+export async function resetPassword2(password: string, token: string): Promise<void> {
+    await client.post("/auth/reset-password2", { password, token })
+}
